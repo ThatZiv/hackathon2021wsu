@@ -31,6 +31,7 @@ io.on("connection", (socket) => {
     })
     socket.on("joinRoom", (roomId) => {
         let targetUser = _.nullKey(Users.get(thisId), "name")
+        socket.join(roomId)
         Rooms.update(roomId, "userAdd", thisId)
         io.in(roomId).emit("msg", `${targetUser} has joined the chat.`)
         //io.in(roomId).emit()
@@ -41,7 +42,7 @@ io.on("connection", (socket) => {
     socket.on('msg', (roomId,msg) => {
         const user = _.nullKey(Users.get(thisId), "name") || "Unknown"
         console.log(roomId, msg, user)
-        io.in(roomId).emit('msg', { user, msg });
+        io.in(roomId).emit(`msg`, { user, msg });
     })
     socket.on("disconnect", () => {
         let all = Rooms.all()
