@@ -1,0 +1,16 @@
+<script src="https://cdn.socket.io/4.3.2/socket.io.min.js"
+    integrity="sha384-KAZ4DtjNhLChOB/hxXuKqhMLYvx3b5MlT55xPEiNmREKRzeEm+RVPlTnAn0ajQNs"
+    crossorigin="anonymous"></script>
+<script>
+    const socket = new io("ws://localhost:2000");
+    const username = prompt("Welcome, enter your username:")
+    socket.emit("join", username) // 2nd argument will be the username
+    socket.onopen = () => {
+        socket.send("Hello!");
+    };
+
+    socket.onmessage = (data) => {
+        console.log(data);
+    };
+    socket.on("alert", console.log) // alert from server
+</script>
