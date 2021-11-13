@@ -3,12 +3,12 @@ class Rooms {
         this.rooms = {}
     }
     get(id) {
-        return id in this.rooms ? this.rooms[id] : null 
+        return id in this.rooms ? this.rooms[id] : null
     }
     add() {
         let id = _.random(6)
         if (!this.get(id)) {
-            this.rooms[id] = {}
+            this.rooms[id] = { users: [] }
             return id
         } else {
             this.add()
@@ -16,14 +16,26 @@ class Rooms {
     }
     update(id, key, val) {
         if (this.get(id)) {
-            this.rooms[id][key] = val
-            return this.rooms[id]
+            if (key == "userAdd") {
+                this.rooms[id].users.push(val)
+                return this.rooms[id]
+            } else if (key == "userDel") {
+                this.rooms[id].users = this.rooms[id].users.filter(item => item !== val)
+                console.log("LOOK! ",this.rooms[id].users)
+                return this.rooms[id]
+            } else {
+                this.rooms[id][key] = val
+                return this.rooms[id]
+            }
         }
     }
     remove(id) {
         if (this.get(id)) {
             delete this.rooms[id]
         }
+    }
+    all() {
+        return this.rooms
     }
 }
 module.exports = Rooms

@@ -10,11 +10,15 @@ class Users {
             this.users[id] = {}
             this.users[id]["name"] = name || "User"
         }
+        console.log(this.users)
     }
     remove(id) {
         if (this.get(id)) {
             delete this.users[id]
         }
+    }
+    all() {
+        return this.users
     }
 }
 

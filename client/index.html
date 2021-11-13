@@ -2,13 +2,19 @@
     integrity="sha384-KAZ4DtjNhLChOB/hxXuKqhMLYvx3b5MlT55xPEiNmREKRzeEm+RVPlTnAn0ajQNs"
     crossorigin="anonymous"></script>
 <script>
-    const socket = new io("ws://localhost:2000");
+    const socket = new io(`ws://${window.location.host}`);
     const username = prompt("Welcome, enter your username:")
-    socket.emit("join", username) // 2nd argument will be the username
+    socket.emit("join", username) // CREATING A USER
+    socket.emit("createRoom") // CREATING A ROOM
     socket.onopen = () => {
         socket.send("Hello!");
     };
-
+    socket.on("createRoom", (data)=>{
+        document.write("<br>Created new room: ", data)
+    })
+    socket.on("join", (data)=>{
+        document.write("Users: ", JSON.stringify(data[0]), "<br>Rooms: ", JSON.stringify(data[1]))
+    })
     socket.onmessage = (data) => {
         console.log(data);
     };

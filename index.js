@@ -4,9 +4,9 @@ const { home, socket } = require("./routing")
 const http = require("http").Server(app)
 const io = require("socket.io")(http)
 global._ = require("./utils") // globalize all utils
-const Users = require("./users")
+let Users = require("./users")
 global.Users = new Users()
-const Rooms = require("./rooms")
+let Rooms = require("./rooms")
 global.Rooms = new Rooms()
 require('dotenv').config() // loads .env file
 
