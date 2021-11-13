@@ -17,11 +17,12 @@ class Rooms {
     update(id, key, val) {
         if (this.get(id)) {
             if (key == "userAdd") {
-                this.rooms[id].users.push(val)
-                return this.rooms[id]
+                if (!this.rooms[id].users.includes(val)) {
+                    this.rooms[id].users.push(val)
+                    return this.rooms[id]
+                }
             } else if (key == "userDel") {
                 this.rooms[id].users = this.rooms[id].users.filter(item => item !== val)
-                console.log("LOOK! ",this.rooms[id].users)
                 return this.rooms[id]
             } else {
                 this.rooms[id][key] = val

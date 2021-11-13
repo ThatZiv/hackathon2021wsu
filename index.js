@@ -3,15 +3,59 @@ const app = express()
 const { home, socket } = require("./routing")
 const http = require("http").Server(app)
 const io = require("socket.io")(http)
-global._ = require("./utils") // globalize all utils
+_ = require("./utils") // globalize all utils
 let Users = require("./users")
-global.Users = new Users()
+Users = new Users()
 let Rooms = require("./rooms")
-global.Rooms = new Rooms()
+Rooms = new Rooms()
 require('dotenv').config() // loads .env file
 
 app.use(home)
-io.on("connection", socket)
+io.on("connection", (socket) => {
+    const thisId = socket.id
+    socket.on("join", (data) => {
+        Users.add(socket.id, data)
+        _.log(`User: [${socket.id}] ${data}, has joined`)
+        socket.emit("join", [Users, Rooms])
+    })
+    socket.emit("alert", "Welcome.")
+    socket.on("createRoom", (data) => {
+        const newRoom = Rooms.add()
+        Rooms.update(newRoom, "userAdd", thisId)
+        socket.emit("createRoom", newRoom)
+        let targetUser = _.nullKey(Users.get(thisId), "name")
+        socket.on(newRoom, (msg) => {
+            io.emit(newRoom, msg) // send to all clients
+        })
+        _.log(`Room: [${newRoom}] has been created by ${targetUser || "Unknown"}`)
+    })
+    socket.on("joinRoom", (roomId) => {
+        let targetUser = _.nullKey(Users.get(thisId), "name")
+        Rooms.update(roomId, "userAdd", thisId)
+        io.in(roomId).emit("msg", `${targetUser} has joined the chat.`)
+        //io.in(roomId).emit()
+    })
+    socket.on("getRooms", () => {
+        socket.emit("getRooms", Rooms.all())
+    })
+    socket.on('msg', (roomId,msg) => {
+        const user = _.nullKey(Users.get(thisId), "name") || "Unknown"
+        console.log(roomId, msg, user)
+        io.in(roomId).emit('msg', { user, msg });
+    })
+    socket.on("disconnect", () => {
+        let all = Rooms.all()
+        let _user = Users.get(thisId)
+        let rooms = Object.keys(all)
+        for (let i in rooms) { // check all rooms and remove if the user is in any of them when they dc
+            let thisRoom = rooms[i]
+            Rooms.update(thisRoom, "userDel", thisId)
+        }
+        _.log(`User: [${thisId}] ${_.nullKey(_user, "name") || "Unknown"}, has left`)
+        Users.remove(thisId)
+    })
+})
+
 http.listen(process.env.PORT, () => {
     _.log(`Listening on port: ${process.env.PORT}`)
 })

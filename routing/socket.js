@@ -11,11 +11,21 @@ module.exports = (socket) => {
     socket.emit("alert", "Welcome.")
     socket.on("createRoom", (data) => {
         const newRoom = global.Rooms.add()
-        global.Rooms.update(newRoom, "userAdd", socket.id)
+        global.Rooms.update(newRoom, "userAdd", thisId)
         socket.emit("createRoom", newRoom)
         let targetUser = _.nullKey(global.Users.get(thisId), "name")
+        socket.on(newRoom, (msg)=> {
+            io.emit(newRoom, msg) // send to all clients
+        })
         _.log(`Room: [${newRoom}] has been created by ${targetUser || "Unknown"}`)
     })
+    socket.on("joinRoom", (roomId)=> {
+        global.Rooms.update(roomId, "userAdd", thisId)
+    })
+    socket.on("getRooms", () => {
+        socket.emit("getRooms", global.Rooms.all())
+    })
+
     socket.on("disconnect", () => {
         let all = global.Rooms.all()
         let _user = global.Users.get(thisId)
