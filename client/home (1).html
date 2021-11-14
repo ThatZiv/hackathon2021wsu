@@ -4,6 +4,7 @@
 <head>
     <title>Friendzy Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="homeStyles.css">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
         integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
@@ -25,37 +26,66 @@
     crossorigin="anonymous"></script>
 
 <body>
-    <nav class="nav main-nav">
-        <div class="btn-group">
-            <button style="width: 50%;" onclick="_.createRoom()"><u>Create a Room</u></button>
-            <button style="width: 50%;" onclick="_.joinRoom()"><u>Join a Room</u></button>
+    <header class="main-header"> 
+        <div id="div0">
+            <h1>Friendzy!</h1>
+            <nav class="nav main-nav">
+                <div class="btn-group">
+                    <button style="width: 50%;" onclick="_.createRoom()"><u>Create a Room</u></button>
+                    <button style="width: 50%;" onclick="_.joinRoom()"><u>Join A Room</u></button>
+                </div>
+            </nav>
         </div>
-    </nav>
+    </header>
+
     <div id="currentConvos">
+        <h2 style="text-align: center;">Current Chats</h2>
         <div id="user1">
-            <h2>Masrur Tajwar</h3>
-                <h3>Hey, what's up?</h3>
+            <h2>Masrur Tajwar</h2>
+                <h4> ~ Hey, what's up?</h4>
         </div>
         <div id="user2">
-            <h2>Zavar Shah</h3>
-                <h3>Hey, what's up?</h3>
+            <h2>Zavar Shah</h2>
+                <h4> ~ Hey, what's up?</h4>
+            </h2>
         </div>
+        <div id="user3">
+            <h2>Poll Chowdhury</h2>
+                <h4> ~ Hey, what's up?</h4>
+            </h2>
+        </div>
+        <div id="user4">
+            <h2>Kelly Whitlock</h2>
+                <h4> ~ Hey, what's up?</h4>
+            </h2>
+        </div>
+        <div id="user5">
+            <h2>Edward Sana</h2>
+                <h4> ~ Hey, what's up?</h4>
+            </h2>
+        </div>
+    </div>
 
-        <div id="mainChat">
-            <div id="canvas"></div>
+    <div id="openRooms">
+        <h2 style="text-align: center;">Open Rooms!</h2>
+        <div id="room1">
+            <h3>Game Room</h3><button style="width: 50%;" onclick="_.joinRoom()"><u>Join Room</u></button>
+        </div>
+        <div id="room2">
+            <h3>Anime Room</h3><button style="width: 50%;" onclick="_.joinRoom()"><u>Join Room</u></button>
+        </div>
+        <div id="room3">
+            <h3>Coding Room</h3><button style="width: 50%;" onclick="_.joinRoom()"><u>Join Room</u></button>
+        </div>
+    </div>
+
+    <div id="mainChat">
+        <div id="canvas"></div>
             <div id="inputMessage">
                 <input type="text" id="sendMessage" placeholder="Send a message...">
+                <button id="Send">Send</button>
             </div>
-            <button id="Send">Send</button>
-        </div>
-
-        <div id="openRooms">
-            <div id="room1">
-                Game Room
-            </div>
-            <div id="room2">
-                Anime Room
-            </div>
+            
         </div>
     </div>
     <script>
