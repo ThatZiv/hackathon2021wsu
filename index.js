@@ -14,11 +14,11 @@ app.use(home)
 io.on("connection", (socket) => {
     const thisId = socket.id
     socket.on("join", (data) => {
-        Users.add(socket.id, data)
-        _.log(`User: [${socket.id}] ${data}, has joined`)
+        Users.add(thisId, data)
+        socket.emit("alert", `Welcome, ${data}!`)
+        _.log(`User: [${thisId}] ${data}, has joined`)
         socket.emit("join", [Users, Rooms])
     })
-    socket.emit("alert", "Welcome.")
     socket.on("createRoom", (data) => {
         const newRoom = Rooms.add()
         Rooms.update(newRoom, "userAdd", thisId)
