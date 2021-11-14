@@ -1,0 +1,50 @@
+<button onclick="main.send()">Send</button>
+<input id="room" placeholder="room id">
+<input id="message" placeholder="enter a message">
+<!-- <button onclick="main.joinRoom()">Join</button> -->
+<script src="https://cdn.socket.io/4.3.2/socket.io.min.js"
+    integrity="sha384-KAZ4DtjNhLChOB/hxXuKqhMLYvx3b5MlT55xPEiNmREKRzeEm+RVPlTnAn0ajQNs"
+    crossorigin="anonymous"></script>
+<script>
+    const socket = new io(`ws://${window.location.host}`);
+    const url = new URLSearchParams(window.location.search);
+
+    const username = prompt("Welcome, enter your username:")
+    socket.emit("join", username) // CREATING A USER
+    socket.emit("createRoom")
+    socket.onopen = () => {
+        socket.send("Hello!");
+    };
+    socket.on("createRoom", (data) => {
+        //document.write("<br>Created new room: ", data)
+    })
+    socket.on("join", (data) => {
+        //document.write("Users: ", JSON.stringify(data[0]), "<br>Rooms: ", JSON.stringify(data[1]))
+    })
+    main = {
+        createRoom: () => {
+            socket.emit("createRoom") // CREATING A ROOM
+        },
+        joinRoom: () => {
+            socket.emit("joinRoom", prompt("Enter Room ID: "))
+        },
+        getRooms: () => {
+            socket.emit("getRooms")
+        },
+        send: () => {
+            socket.emit("msg", document.querySelector("#room").value, document.querySelector("#message").value)
+        }
+    }
+    socket.on("msg", ({ user, msg }) => {
+        console.log(user, msg)
+    })
+    socket.on("getRooms", (data) => {
+        console.log(data)
+    })
+    socket.onmessage = (data) => {
+        console.log(data);
+    };
+    socket.on("alert", (data) => {
+        // toast alert data somehow later when front end is done
+    }) // alert from server
+</script>
