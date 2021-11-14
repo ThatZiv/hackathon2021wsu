@@ -33,26 +33,32 @@ io.on("connection", (socket) => {
         let targetUser = _.nullKey(Users.get(thisId), "name")
         socket.join(roomId)
         Rooms.update(roomId, "userAdd", thisId)
-        io.in(roomId).emit("msg", `${targetUser} has joined the chat.`)
+        io.in(roomId).emit("msg", { user: "Server", msg: `${targetUser} has joined the chat.` })
+        _.log(`${targetUser} has joined ${roomId}.`)
         //io.in(roomId).emit()
     })
     socket.on("getRooms", () => {
         socket.emit("getRooms", Rooms.all())
     })
-    socket.on('msg', (roomId,msg) => {
+    socket.on("getUsers", () => {
+        socket.emit("getUsers", Users.all())
+    })
+    socket.on('msg', (roomId, msg) => {
         const user = _.nullKey(Users.get(thisId), "name") || "Unknown"
-        console.log(roomId, msg, user)
+        _.log(`Room: [${roomId}] - ${user} says ${msg}`)
         io.in(roomId).emit(`msg`, { user, msg });
     })
     socket.on("disconnect", () => {
         let all = Rooms.all()
         let _user = Users.get(thisId)
         let rooms = Object.keys(all)
+        let targetUser = _.nullKey(_user, "name") || "Unknown"
+        io.emit("msg", { user: "Server", msg: `${targetUser} has exited.` })
         for (let i in rooms) { // check all rooms and remove if the user is in any of them when they dc
             let thisRoom = rooms[i]
-            Rooms.update(thisRoom, "userDel", thisId)
+            Rooms.update(thisRoom, "userDel", thisId)   
         }
-        _.log(`User: [${thisId}] ${_.nullKey(_user, "name") || "Unknown"}, has left`)
+        _.log(`User: [${thisId}] ${targetUser}, has left`)
         Users.remove(thisId)
     })
 })

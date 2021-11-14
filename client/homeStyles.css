@@ -2,14 +2,14 @@ html {
     margin: 0;  
  }
  
- #currentConvos {
+/*  #currentConvos {
      height: auto; 
      width: 22%;
      float: left; 
      margin: 6.5px;
      margin-top: 12.5px; 
  }
- 
+  */
  #user1 {
    border: 2px solid black; 
    padding: 2px; 
@@ -36,14 +36,27 @@ html {
  }
  
  #mainChat {
-     border: 3px solid black;
-     width: 52%;
-     margin: 0 auto; 
-     margin-top: 12.5px;
+    position:fixed;
+    top:0;
+    left:0;
+    padding:0;
+    max-height: 50px;
  }
- 
+
+ .input-group .form-control {
+    margin: 0px !important;
+}
+
+.input-group { font-size: 14px !important; }
+
  #canvas {
      height: 5cm; 
+ }
+
+ #Send {
+    width: 90px;
+    margin: 0 auto;
+    text-align: justify;
  }
  
  #openRooms {
@@ -51,6 +64,7 @@ html {
      float: right; 
      margin-left: 12.5px
  }
+
 
  #room1 {
      border: 2px solid black; 
@@ -67,9 +81,7 @@ html {
     padding: 2px; 
 }
  
- #div0 {
-     height: auto; 
- }
+ 
  
  h1 {
      text-align: center; 
@@ -84,4 +96,7 @@ html {
      font-family: Arial, sans-serif
  }
  
+ .navbar-collapse.in {
+    display: block !important;
+}
  
