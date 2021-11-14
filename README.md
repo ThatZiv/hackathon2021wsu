@@ -1,6 +1,8 @@
 # Friendzy - `Hackathon 2021 WSU`
 Friendzy is a simple chatting application that allows users to communicate with eachother with the option to utilize rooms
 
+![img](https://github.com/ThatZiv/hackathon2021wsu/blob/main/pics/chat.PNG?raw=true)
+
 ## Contributors
 * @thatziv - https://github.com/thatziv
 * @masrurtajwar - https://github.com/masrurtajwar
