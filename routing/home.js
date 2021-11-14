@@ -10,6 +10,6 @@ router.get("/chat", (req, res) => {
         res.status(401).redirect("/")
         return
     }
-    res.sendFile(path.join(__dirname, "../", "./client/home (1).html")) // send client "HOME" screen
+    res.sendFile(path.join(__dirname, "../", "./client/home.html")) // send client "HOME" screen
 })
 module.exports = router
