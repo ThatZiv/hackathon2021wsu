@@ -1,21 +1,87 @@
 html {
-   margin: 0;  
+    margin: 0;  
+ }
+ 
+ #currentConvos {
+     height: auto; 
+     width: 22%;
+     float: left; 
+     margin: 6.5px;
+     margin-top: 12.5px; 
+ }
+ 
+ #user1 {
+   border: 2px solid black; 
+   padding: 2px; 
+ }
+ 
+ #user2 {
+   border: 2px solid black; 
+   padding: 2px; 
+ }
+ 
+ #user3 {
+   border: 2px solid black; 
+   padding: 2px; 
+ }
+ 
+ #user4 {
+   border: 2px solid black; 
+   padding: 2px; 
+ }
+ 
+ #user5{
+   border: 2px solid black; 
+   padding: 2px; 
+ }
+ 
+ #mainChat {
+     border: 3px solid black;
+     width: 52%;
+     margin: 0 auto; 
+     margin-top: 12.5px;
+ }
+ 
+ #canvas {
+     height: 5cm; 
+ }
+ 
+ #openRooms {
+     width: 22%;
+     float: right; 
+     margin-left: 12.5px
+ }
+
+ #room1 {
+     border: 2px solid black; 
+     padding: 2px; 
+ }
+
+ #room2 {
+    border: 2px solid black; 
+    padding: 2px; 
 }
 
-#currentConvos {
-    border: 2px solid black;
+#room3 {
+    border: 2px solid black; 
+    padding: 2px; 
 }
-
-h1 {
-    text-align: center; 
-    font-family: Arial, sans-serif;
-}
-
-h2 {
-    font-family: Arial, sans-serif
-}
-
-h3 {
-    font-family: Arial, sans-serif
-}
-
+ 
+ #div0 {
+     height: auto; 
+ }
+ 
+ h1 {
+     text-align: center; 
+     font-family: Arial, sans-serif;
+ }
+ 
+ h2 {
+     font-family: Arial, sans-serif
+ }
+ 
+ h3 {
+     font-family: Arial, sans-serif
+ }
+ 
+ 
